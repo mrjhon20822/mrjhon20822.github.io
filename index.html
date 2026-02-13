@@ -1,18 +1,314 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <title>Website MrJhon</title>
-    <style>
-        body { font-family: sans-serif; text-align: center; margin-top: 50px; background-color: #f4f4f4; }
-        .card { background: white; padding: 20px; display: inline-block; border-radius: 10px; shadow: 0 4px 8px rgba(0,0,0,0.1); }
-    </style>
-</head>
-<body>
-    <div class="card">
-        <h1>Halo! Ini Website mrjhon20822</h1>
-        <p>Berhasil dideploy via GitHub Pages.</p>
-    </div>
-</body>
-</html>
+<meta charset="UTF-8">
+<title>Minecraft Server Checker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg1:#0f0c29;
+  --bg2:#302b63;
+  --bg3:#24243e;
+  --glass:rgba(255,255,255,0.06);
+  --border:rgba(255,255,255,0.1);
+  --text:#ffffff;
+  --accent:#00f5ff;
+  --accent2:#a855f7;
+  --success:#00ff88;
+  --danger:#ff3b3b;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3));
+  min-height:100vh;
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+/* glowing background */
+body::before{
+  content:"";
+  position:fixed;
+  width:600px;height:600px;
+  background:radial-gradient(circle,var(--accent),transparent 70%);
+  top:-200px;left:-200px;
+  opacity:.15;
+  z-index:-1;
+}
+
+/* NAV */
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 40px;
+  backdrop-filter:blur(15px);
+}
+
+nav h2{
+  font-family:'Orbitron',sans-serif;
+  letter-spacing:2px;
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  padding:60px 20px 30px;
+}
+
+.hero h1{
+  font-family:'Orbitron',sans-serif;
+  font-size:42px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+  opacity:.7;
+  margin-top:10px;
+}
+
+/* CONTAINER */
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+}
+
+/* GLASS CARD */
+.card{
+  background:var(--glass);
+  border:1px solid var(--border);
+  backdrop-filter:blur(20px);
+  padding:25px;
+  border-radius:20px;
+  margin-bottom:30px;
+  box-shadow:0 0 40px rgba(0,255,255,0.1);
+}
+
+/* INPUT */
+input{
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,0.05);
+  color:white;
+  margin-bottom:15px;
+}
+
+/* BUTTON */
+button{
+  padding:14px;
+  border-radius:12px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  transition:.3s;
+}
+
+.btn-primary{
+  width:100%;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  color:black;
+  font-weight:700;
+  box-shadow:0 0 20px var(--accent);
+}
+
+.btn-primary:hover{
+  transform:translateY(-3px);
+  box-shadow:0 0 40px var(--accent);
+}
+
+.btn-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  margin-top:15px;
+}
+
+.btn-secondary{
+  background:rgba(255,255,255,0.08);
+  color:white;
+  border:1px solid var(--border);
+}
+
+.btn-secondary:hover{
+  box-shadow:0 0 20px var(--accent);
+}
+
+/* SERVER GRID */
+#servers{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:25px;
+}
+
+/* SERVER CARD */
+.server{
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:20px;
+  backdrop-filter:blur(15px);
+  transition:.3s;
+  position:relative;
+  overflow:hidden;
+}
+
+.server::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:20px;
+  padding:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  pointer-events:none;
+}
+
+.server:hover{
+  transform:translateY(-6px);
+  box-shadow:0 0 40px rgba(0,255,255,0.3);
+}
+
+.server img{
+  width:60px;height:60px;
+  image-rendering:pixelated;
+  border-radius:12px;
+  margin-bottom:10px;
+}
+
+.server h3{
+  font-family:'Orbitron',sans-serif;
+  margin-bottom:10px;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  margin:5px 0;
+  font-size:14px;
+}
+
+.online{color:var(--success);font-weight:600;}
+.offline{color:var(--danger);font-weight:600;}
+
+footer{
+  text-align:center;
+  padding:40px 10px;
+  opacity:.6;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <h2>🎮 MC SERVER CHECKER</h2>
+</nav>
+
+<section class="hero">
+  <h1>Minecraft Server Monitor</h1>
+  <p>Real-time Minecraft Java & Bedrock Status</p>
+</section>
+
+<div class="container">
+
+  <div class="card">
+    <input id="host" placeholder="play.server.com atau IP">
+    <input id="port" placeholder="Port (opsional)">
+    <button class="btn-primary" onclick="addServer()">ADD SERVER</button>
+
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="refreshServers()">REFRESH</button>
+      <button class="btn-secondary" onclick="clearServerList()">CLEAR</button>
+    </div>
+  </div>
+
+  <div id="servers"></div>
+
+</div>
+
+<footer>
+  © 2026 Minecraft Server Checker • Mrjhon Mc
+</footer>
+
+<script>
+let servers = JSON.parse(localStorage.getItem("mc_servers")) || [];
+
+function save(){
+  localStorage.setItem("mc_servers", JSON.stringify(servers));
+}
+
+function addServer(){
+  const host=document.getElementById("host").value.trim();
+  const port=document.getElementById("port").value.trim();
+  if(!host) return alert("Masukkan host!");
+
+  servers.push({host,port});
+  save();
+  loadServers();
+}
+
+async function checkServer(s){
+  const url=`https://api.mcsrvstat.us/2/${s.host}${s.port?":"+s.port:""}`;
+  const res=await fetch(url);
+  return await res.json();
+}
+
+async function loadServers(){
+  const box=document.getElementById("servers");
+  box.innerHTML="";
+
+  for(const s of servers){
+    let data;
+    try{ data=await checkServer(s); }
+    catch{ data={online:false}; }
+
+    box.innerHTML+=`
+      <div class="server">
+        <img src="${data.icon||'https://api.mcsrvstat.us/icon/minecraft.net'}">
+        <h3>${s.host}</h3>
+        <div class="row">
+          <span>Status</span>
+          <span class="${data.online?'online':'offline'}">
+            ${data.online?'ONLINE':'OFFLINE'}
+          </span>
+        </div>
+        <div class="row">
+          <span>Players</span>
+          <span>${data.players?`${data.players.online}/${data.players.max}`:'-'}</span>
+        </div>
+        <div class="row">
+          <span>Version</span>
+          <span>${data.version||'-'}</span>
+        </div>
+      </div>`;
+  }
+}
+
+function refreshServers(){ loadServers(); }
+
+function clearServerList(){
+  servers=[];
+  localStorage.removeItem("mc_servers");
+  loadServers();
+}
+
+loadServers();
+</script>
+
+</body>
+    </html>
